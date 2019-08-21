@@ -1,4 +1,4 @@
-#include <iostream>>
+#include <iostream>
 #include "myitem.h"
 #include <QPainter>
 #include <QCursor>
@@ -6,7 +6,7 @@
 #include <math.h>
 
 using namespace std;
-
+//----------------------------------global variable------------------------------------//
 
 extern rectPos center[400][400];
 rectPos set_Rect_Pos(double x, double y);
@@ -19,9 +19,16 @@ static rectPos hex4 = set_Rect_Pos(2,2);
 static rectPos hex5 = set_Rect_Pos(2,1);
 static rectPos hex6 = set_Rect_Pos(1,0);
 
+rectPos set_Rect_Pos(double x, double y){
+    rectPos point;
+    point.rect_x=x;
+    point.rect_y=y;
+    return point;
+}
+
 
 QPointF transformCoords(rectPos point){
-    return QPointF(10*(point.rect_x - 0.5*point.rect_y),10*(sqrt(3)/2*point.rect_y));
+    return QPointF(30*(point.rect_x - 0.5*point.rect_y),30*(sqrt(3)/2*point.rect_y));
 }
 
 void set_Rect_Center(){
@@ -37,6 +44,8 @@ void set_Rect_Center(){
     }
 }
 
+
+//-----------------------------------------------------------------------------------------------------//
 MyItem::MyItem()
 {
     //generate random number
@@ -48,7 +57,7 @@ MyItem::MyItem()
 
 QRectF MyItem::boundingRect() const{
     qreal adjust = 0.5;
-    return QRectF(-20-adjust,-17.3-adjust,40+adjust,40+adjust);
+    return QRectF(-15-adjust,0-adjust,60+adjust,52+adjust);
 }
 
 void MyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *){
@@ -70,13 +79,17 @@ void MyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 void MyItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
     setFocus();
     setCursor(Qt::ClosedHandCursor);
+    if(Num < 5){
+        Num++;
+        brushColor = QColor(255-(Num*51),255-(Num*51),255-(Num*51));
+    }
+    else{
+        Num = 0;
+        brushColor = Qt::white;
+    }
 
+    setRotation(360);
+    return;
 }
 
 
-rectPos set_Rect_Pos(double x, double y){
-    rectPos point;
-    point.rect_x=x;
-    point.rect_y=y;
-    return point;
-}

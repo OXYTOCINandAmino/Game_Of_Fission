@@ -7,6 +7,8 @@ struct rectPos{
     double rect_y;
 };
 
+
+
 class MyItem : public QGraphicsItem
 {
 
