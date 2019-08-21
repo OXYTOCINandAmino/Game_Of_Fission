@@ -7,7 +7,7 @@
 
 MyItem::MyItem()
 {
-    brushColor = Qt::white;
+    brushColor = Qt::black;
     Num = 0;
     setFlag(QGraphicsItem::ItemIsFocusable);
 }
@@ -15,16 +15,20 @@ MyItem::MyItem()
 
 QRectF MyItem::boundingRect() const{
     qreal adjust = 0.5;
-    return QRectF(0-adjust,0-adjust,20+adjust,20+adjust);
+    return QRectF(-20-adjust,-17.3-adjust,40+adjust,40+adjust);
 }
 
 void MyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *){
     painter -> setBrush(brushColor);
     static const QPointF points[6] =
     { QPointF(-20.0, 0.0),
-      QPointF(-10.0, 17.3),
+      QPointF(-10.0,17.3),
       QPointF(10.0, 17.3),
-      QPointF(20.0, 0.0)    };
+      QPointF(20.0, 0.0),
+      QPointF(10.0, -17.3),
+      QPointF(-10.0,-17.3),
+    };
+    painter->drawPolygon(points, 6);
 
     }
 
