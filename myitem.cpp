@@ -8,11 +8,11 @@
 using namespace std;
 //----------------------------------global variable------------------------------------//
 
-extern rectPos center[400][400];
+extern rectPos center[20][40];
+
 rectPos set_Rect_Pos(double x, double y);
 QPointF transformCoords(rectPos point);
 void set_Rect_Center();
-void change_cell(int i,int j);
 
 static rectPos hex1 = set_Rect_Pos(0,0);
 static rectPos hex2 = set_Rect_Pos(0,1);
@@ -28,14 +28,13 @@ rectPos set_Rect_Pos(double x, double y){
     return point;
 }
 
-
 QPointF transformCoords(rectPos point){
     return QPointF(30*(point.rect_x - 0.5*point.rect_y),30*(sqrt(3)/2*point.rect_y));
 }
 
 void set_Rect_Center(){
-    for (int i=0;i<10;i++){
-        for (int j=0;j<10;j++){
+    for (int i=0;i<20;i++){
+        for (int j=0;j<40;j++){
             if(j%2==0){
                 center[i][j]=set_Rect_Pos(3*i+j/2-5,j-5);
             }
@@ -81,6 +80,7 @@ void MyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 void MyItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
     setFocus();
     setCursor(Qt::ClosedHandCursor);
+
     if(Num < 5){
         Num++;
         brushColor = QColor(255-(Num*51),255-(Num*51),255-(Num*51));
@@ -93,6 +93,5 @@ void MyItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
     setRotation(360);
     return;
 }
-
 
 
