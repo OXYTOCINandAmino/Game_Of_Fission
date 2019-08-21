@@ -6,15 +6,14 @@
 #include <math.h>
 
 using namespace std;
-<<<<<<< HEAD
+
 //----------------------------------global variable------------------------------------//
 
-extern rectPos center[400][400];
-=======
+extern rectPos center[10][10];
+
 
 extern int MaxValue;
 extern rectPos center[10][10];
->>>>>>> f44f3e9ef731c85f715360f353174cadeab68848
 rectPos set_Rect_Pos(double x, double y);
 QPointF transformCoords(rectPos point);
 void set_Rect_Center();
@@ -27,20 +26,8 @@ static rectPos hex4 = set_Rect_Pos(2,2);
 static rectPos hex5 = set_Rect_Pos(2,1);
 static rectPos hex6 = set_Rect_Pos(1,0);
 
-rectPos set_Rect_Pos(double x, double y){
-    rectPos point;
-    point.rect_x=x;
-    point.rect_y=y;
-    return point;
-}
-
-
 QPointF transformCoords(rectPos point){
-<<<<<<< HEAD
     return QPointF(30*(point.rect_x - 0.5*point.rect_y),30*(sqrt(3)/2*point.rect_y));
-=======
-    return QPointF(8*(point.rect_x - 0.5*point.rect_y),8*(sqrt(3)/2*point.rect_y));
->>>>>>> f44f3e9ef731c85f715360f353174cadeab68848
 }
 
 void set_Rect_Center(){
@@ -91,8 +78,7 @@ void MyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 void MyItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
     setFocus();
     setCursor(Qt::ClosedHandCursor);
-<<<<<<< HEAD
-    if(Num < 5){
+    if(Num < MaxValue){
         Num++;
         brushColor = QColor(255-(Num*51),255-(Num*51),255-(Num*51));
     }
@@ -103,10 +89,6 @@ void MyItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
     setRotation(360);
     return;
-}
-
-
-=======
 }
 
 
@@ -133,4 +115,3 @@ void change_cell(int i,int j){
         Hive[i][j].Num = num+1;
     }
 }
->>>>>>> f44f3e9ef731c85f715360f353174cadeab68848
