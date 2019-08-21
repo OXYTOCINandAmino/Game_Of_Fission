@@ -1,14 +1,13 @@
 #include "myitem.h"
 #include <QPainter>
 #include <QCursor>
-#include <QKeyEvent>
-#include <QGraphicsSceneHoverEvent>
-#include <QMenu>
+#include <QTime>
 
 MyItem::MyItem()
 {
-    brushColor = Qt::black;
-    Num = 0;
+    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+    Num = qrand() % 5;
+    brushColor = QColor(51*Num,51*Num,51*Num);
     setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
