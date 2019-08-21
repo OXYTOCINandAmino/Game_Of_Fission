@@ -8,8 +8,11 @@
 using namespace std;
 //----------------------------------global variable------------------------------------//
 
-extern rectPos center[20][40];
-
+extern rectPos center[100][100];
+extern int row;
+extern int col;
+extern int MaxValue;
+extern double sideLength;
 rectPos set_Rect_Pos(double x, double y);
 QPointF transformCoords(rectPos point);
 void set_Rect_Center();
@@ -29,17 +32,17 @@ rectPos set_Rect_Pos(double x, double y){
 }
 
 QPointF transformCoords(rectPos point){
-    return QPointF(30*(point.rect_x - 0.5*point.rect_y),30*(sqrt(3)/2*point.rect_y));
+    return QPointF(sideLength*(point.rect_x - 0.5*point.rect_y),sideLength*(sqrt(3)/2*point.rect_y));
 }
 
 void set_Rect_Center(){
-    for (int i=0;i<20;i++){
-        for (int j=0;j<40;j++){
+    for (int i=0;i<row;i++){
+        for (int j=0;j<col;j++){
             if(j%2==0){
-                center[i][j]=set_Rect_Pos(3*i+j/2-5,j-5);
+                center[i][j]=set_Rect_Pos(3*i+j/2-row/2,j-col/2);
             }
             else {
-               center[i][j]=set_Rect_Pos(3*i+2+j/2-5,j-5);
+               center[i][j]=set_Rect_Pos(3*i+2+j/2-row/2,j-col/2);
             }
         }
     }
@@ -58,7 +61,7 @@ MyItem::MyItem()
 
 QRectF MyItem::boundingRect() const{
     qreal adjust = 0.5;
-    return QRectF(-15-adjust,0-adjust,60+adjust,52+adjust);
+    return QRectF(-sideLength/2-adjust,0-adjust,sideLength*2+adjust,sqrt(3)*sideLength+adjust);
 }
 
 void MyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *){
@@ -81,7 +84,7 @@ void MyItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
     setFocus();
     setCursor(Qt::ClosedHandCursor);
 
-    if(Num < 5){
+    if(Num < MaxValue){
         Num++;
         brushColor = QColor(255-(Num*51),255-(Num*51),255-(Num*51));
     }
