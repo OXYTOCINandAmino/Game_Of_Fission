@@ -8,9 +8,11 @@ using namespace std;
 
 void set_Rect_Center();
 QPointF transformCoords(rectPos point);
-rectPos center[400][400];
+void change_cell(int i,int j);
 
-MyItem Hive[10][20];
+rectPos center[10][10];
+int MaxValue = 5;
+MyItem Hive[10][10];
 
 int main(int argc, char * argv[]){
    QApplication app(argc,argv);
@@ -19,15 +21,32 @@ int main(int argc, char * argv[]){
    scene.setSceneRect(-200,-150,400,300);
    set_Rect_Center();
 
-   for(int i=0; i<400;i++){
-       for(int j=0; j<400;j++){
-           MyItem *item = new MyItem;
+   for(int i=0; i<10;i++){
+       for(int j=0; j<10;j++){
+//           Hive[i][j].Num=0;
+           int color = 51*(MaxValue-Hive[i][j].Num);
+           Hive[i][j].brushColor = QColor(color,color,color);
            QPointF hex_Pos = transformCoords(center[i][j]);
-           item -> setPos(hex_Pos);
-           scene.addItem(item);
+           Hive[i][j].setPos(hex_Pos);
+           scene.addItem(&Hive[i][j]);
        }
    }
-
+      change_cell(3,3);
+      change_cell(3,3);
+      change_cell(3,3);
+      change_cell(3,3);
+      change_cell(3,3);
+      change_cell(3,3);
+   for(int i=0; i<10;i++){
+       for(int j=0; j<10;j++){
+//           Hive[i][j].Num=0;
+           int color = 51*(MaxValue-Hive[i][j].Num);
+           Hive[i][j].brushColor = QColor(color,color,color);
+           QPointF hex_Pos = transformCoords(center[i][j]);
+           Hive[i][j].setPos(hex_Pos);
+           scene.addItem(&Hive[i][j]);
+       }
+   }
 
    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
 
