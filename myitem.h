@@ -14,12 +14,13 @@ class MyItem : public QGraphicsItem
 
 public:
     QColor brushColor;
-    int    Num;
+    int    Num = 0;
     MyItem();
 
     QRectF boundingRect()const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     void set_Rect_Center();
+    void setColor();
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

@@ -86,15 +86,19 @@ void MyItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
 
     if(Num < MaxValue){
         Num++;
-        brushColor = QColor(255-(Num*51),255-(Num*51),255-(Num*51));
+//        brushColor = QColor(255-(Num*51),255-(Num*51),255-(Num*51));
     }
     else{
         Num = 0;
-        brushColor = Qt::white;
+//        brushColor = Qt::white;
     }
-
+    setColor();
     setRotation(360);
     return;
+}
+
+void MyItem::setColor(){
+    brushColor = QColor(255-(Num*51),255-(Num*51),255-(Num*51));
 }
 
 

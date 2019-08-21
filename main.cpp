@@ -11,7 +11,7 @@ MyItem Hive[100][100];
 int MaxValue = 5;
 int row = 40;
 int col = 80;
-double sideLength = 40;
+double sideLength = 30;
 
 void set_Rect_Center();
 QPointF transformCoords(rectPos point);
@@ -30,7 +30,8 @@ int main(int argc, char * argv[]){
            Hive[i][j].setPos(hex_Pos);
            int Num = qrand()%5;
            Hive[i][j].Num = Num;
-           Hive[i][j].brushColor = QColor(255-(Num*51),255-(Num*51),255-(Num*51));
+//           Hive[i][j].brushColor = QColor(255-(Num*51),255-(Num*51),255-(Num*51));
+           Hive[i][j].setColor();
            scene.addItem(&Hive[i][j]);
        }
    }
