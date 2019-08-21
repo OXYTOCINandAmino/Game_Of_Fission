@@ -6,7 +6,7 @@ MyItem::MyItem()
 {
     //generate random number
     Num = 0;
-    brushColor = Qt::black;
+    brushColor = Qt::white;
     setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
