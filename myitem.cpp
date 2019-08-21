@@ -1,13 +1,12 @@
 #include "myitem.h"
 #include <QPainter>
 #include <QCursor>
-#include <QTime>
 
 MyItem::MyItem()
 {
-    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
-    Num = qrand() % 5;
-    brushColor = QColor(51*Num,51*Num,51*Num);
+    //generate random number
+    Num = 0;
+    brushColor = Qt::black;
     setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
