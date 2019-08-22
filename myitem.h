@@ -29,9 +29,17 @@ public:
     void set_i_and_j(int x, int y);
     void setColor();
     rectPos get_i_and_j();
-
+    MyItem* get_surroundings(int s_n);
+    void changeColor();
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 };
+
+
+
+rectPos set_Rect_Pos(double x, double y);
+QPointF transformCoords(rectPos point);
+void set_Rect_Center();
+MyItem* get_Item_From_i_and_j(int x,int y);
 
 #endif // MYITEM_H

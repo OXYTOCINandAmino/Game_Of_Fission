@@ -14,9 +14,7 @@ extern int row;
 extern int col;
 extern int MaxValue;
 extern double sideLength;
-rectPos set_Rect_Pos(double x, double y);
-QPointF transformCoords(rectPos point);
-void set_Rect_Center();
+
 
 static rectPos hex1 = set_Rect_Pos(0,0);
 static rectPos hex2 = set_Rect_Pos(0,1);
@@ -99,16 +97,7 @@ void MyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 void MyItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
     setFocus();
     setCursor(Qt::ClosedHandCursor);
-
-    if(Num < MaxValue){
-        Num++;
-//        brushColor = QColor(255-(Num*51),255-(Num*51),255-(Num*51));
-    }
-    else{
-        Num = 0;
-//        brushColor = Qt::white;
-    }
-    setColor();
+    this->changeColor();
     setRotation(360);
     return;
 }
@@ -118,12 +107,12 @@ void MyItem::setColor(){
 }
 
 void MyItem::set_i_and_j(int x, int y){
-    i = x;
-    j = y;
+    this->i = x;
+    this->j = y;
 }
 
 void MyItem::setNum(int num){
-    Num = num;
+    this->Num = num;
 }
 
 rectPos MyItem::get_i_and_j(){
@@ -131,4 +120,71 @@ rectPos MyItem::get_i_and_j(){
     Pos.rect_x = this->i;
     Pos.rect_y = this->j;
     return Pos;
+}
+
+MyItem* MyItem::get_surroundings(int s_n){
+    int i = this->get_i_and_j().rect_x;
+    int j = this->get_i_and_j().rect_y;
+    MyItem *s1,*s2,*s3,*s4,*s5,*s6;
+    s1 = get_Item_From_i_and_j(i,j+2);
+    s4 = get_Item_From_i_and_j(i,j-2);
+
+    if(j%2!=0){
+        s2 = get_Item_From_i_and_j(i,j+1);
+        s3 = get_Item_From_i_and_j(i,j-1);
+        s5 = get_Item_From_i_and_j(i-1,j-1);
+        s6 = get_Item_From_i_and_j(i-1,j+1);
+    }
+    else{
+        if(i==0&&j==2)
+        s2 = get_Item_From_i_and_j(i+1,j+1);
+        s3 = get_Item_From_i_and_j(i+1,j-1);
+        s5 = get_Item_From_i_and_j(i,j-1);
+        s6 = get_Item_From_i_and_j(i,j+1);
+    }
+
+    switch(s_n) {
+    case 1:
+        return s1;
+    case 2:
+        return s2;
+    case 3:
+        return s3;
+    case 4:
+        return s4;
+    case 5:
+        return s5;
+    case 6:
+        return s6;
+    default:
+        return nullptr;
+    }
+
+}
+
+MyItem* get_Item_From_i_and_j(int x,int y){
+    for(int i=0;i<col;i++){
+        for(int j=0; j<row;j++){
+            rectPos Pos = Hive[i][j].get_i_and_j();
+            if(Pos.rect_x == x && Pos.rect_y == y){
+                return &Hive[i][j];
+            }
+        }
+    }
+    return nullptr;
+}
+
+void MyItem::changeColor(){
+    int num = this->Num;
+    if(num<MaxValue){
+        this->setNum(num+1);
+        this->setColor();
+    }
+    else{
+        this->setNum(0);
+        this->setColor();
+        for(int i=1;i<=6;i++){
+            this->get_surroundings(i)->changeColor();
+        }
+    }
 }
