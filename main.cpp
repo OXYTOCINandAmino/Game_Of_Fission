@@ -26,9 +26,8 @@ int main(int argc, char * argv[]){
            QPointF hex_Pos = transformCoords(center[i][j]);
            Hive[i][j].setPos(hex_Pos);
            Hive[i][j].set_i_and_j(i,j);
-           int Num = qrand()%5;
+           int Num = qrand()%MaxValue;
            Hive[i][j].setNum(Num);
-//           Hive[i][j].brushColor = QColor(255-(Num*51),255-(Num*51),255-(Num*51));
            Hive[i][j].setColor();
            scene.addItem(&Hive[i][j]);
        }

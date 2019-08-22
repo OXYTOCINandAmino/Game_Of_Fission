@@ -25,12 +25,14 @@ public:
     QRectF boundingRect()const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     void set_Rect_Center();
+    int getNum();
     void setNum(int num);
     void set_i_and_j(int x, int y);
     void setColor();
     rectPos get_i_and_j();
     MyItem* get_surroundings(int s_n);
     void changeColor();
+    void oneClick();
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 };

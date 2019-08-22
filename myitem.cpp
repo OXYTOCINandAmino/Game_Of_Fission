@@ -66,13 +66,6 @@ MyItem::MyItem(QColor color,int num,int x,int y){
     j = y;
 }
 
-//MyItem::MyItem(const MyItem &item){
-//    brushColor = item.brushColor;
-//    Num = item.Num;
-//    i = item.i;
-//    j = item.j;
-//}
-
 QRectF MyItem::boundingRect() const{
     qreal adjust = 0.5;
     return QRectF(-sideLength/2-adjust,0-adjust,sideLength*2+adjust,sqrt(3)*sideLength+adjust);
@@ -97,18 +90,23 @@ void MyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 void MyItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
     setFocus();
     setCursor(Qt::ClosedHandCursor);
-    this->changeColor();
+    changeColor();
+    this->setColor();
     setRotation(360);
     return;
 }
 
 void MyItem::setColor(){
-    brushColor = QColor(255-(Num*51),255-(Num*51),255-(Num*51));
+    this->brushColor = QColor(255-(Num*255/MaxValue),255-(Num*255/MaxValue),255-(Num*255/MaxValue));
 }
 
 void MyItem::set_i_and_j(int x, int y){
     this->i = x;
     this->j = y;
+}
+
+int MyItem::getNum(){
+    return this->Num;
 }
 
 void MyItem::setNum(int num){
@@ -136,7 +134,6 @@ MyItem* MyItem::get_surroundings(int s_n){
         s6 = get_Item_From_i_and_j(i-1,j+1);
     }
     else{
-        if(i==0&&j==2)
         s2 = get_Item_From_i_and_j(i+1,j+1);
         s3 = get_Item_From_i_and_j(i+1,j-1);
         s5 = get_Item_From_i_and_j(i,j-1);
@@ -175,7 +172,7 @@ MyItem* get_Item_From_i_and_j(int x,int y){
 }
 
 void MyItem::changeColor(){
-    int num = this->Num;
+    int num = this->getNum();
     if(num<MaxValue){
         this->setNum(num+1);
         this->setColor();
@@ -184,7 +181,11 @@ void MyItem::changeColor(){
         this->setNum(0);
         this->setColor();
         for(int i=1;i<=6;i++){
-            this->get_surroundings(i)->changeColor();
+            MyItem* item = this->get_surroundings(i);
+            if(item==nullptr)
+                return;
+            item->changeColor();
+            item->setRotation(360);
         }
     }
 }
