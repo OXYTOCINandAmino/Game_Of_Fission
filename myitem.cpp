@@ -9,6 +9,7 @@ using namespace std;
 //----------------------------------global variable------------------------------------//
 
 extern rectPos center[100][100];
+extern MyItem Hive[100][100];
 extern int row;
 extern int col;
 extern int MaxValue;
@@ -36,13 +37,13 @@ QPointF transformCoords(rectPos point){
 }
 
 void set_Rect_Center(){
-    for (int i=0;i<row;i++){
-        for (int j=0;j<col;j++){
+    for (int i=0;i<col;i++){
+        for (int j=0;j<row;j++){
             if(j%2==0){
-                center[i][j]=set_Rect_Pos(3*i+j/2-row/2,j-col/2);
+                center[i][j]=set_Rect_Pos(3*i+2+j/2-row/2,j-col/2);
             }
             else {
-               center[i][j]=set_Rect_Pos(3*i+2+j/2-row/2,j-col/2);
+               center[i][j]=set_Rect_Pos(3*i+(j+1)/2-row/2,j-col/2);
             }
         }
     }
@@ -54,10 +55,25 @@ MyItem::MyItem()
 {
     //generate random number
     Num = 0;
+    i = 0;
+    j = 0;
     brushColor = Qt::white;
     setFlag(QGraphicsItem::ItemIsFocusable);
 }
 
+MyItem::MyItem(QColor color,int num,int x,int y){
+    brushColor = color;
+    Num = num;
+    i = x;
+    j = y;
+}
+
+//MyItem::MyItem(const MyItem &item){
+//    brushColor = item.brushColor;
+//    Num = item.Num;
+//    i = item.i;
+//    j = item.j;
+//}
 
 QRectF MyItem::boundingRect() const{
     qreal adjust = 0.5;
@@ -101,4 +117,18 @@ void MyItem::setColor(){
     brushColor = QColor(255-(Num*51),255-(Num*51),255-(Num*51));
 }
 
+void MyItem::set_i_and_j(int x, int y){
+    i = x;
+    j = y;
+}
 
+void MyItem::setNum(int num){
+    Num = num;
+}
+
+rectPos MyItem::get_i_and_j(){
+    rectPos Pos;
+    Pos.rect_x = this->i;
+    Pos.rect_y = this->j;
+    return Pos;
+}
