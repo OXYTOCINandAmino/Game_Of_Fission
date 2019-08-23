@@ -29,10 +29,10 @@ public:
     void setNum(int num);
     void set_i_and_j(int x, int y);
     void setColor();
+    void setColor(QColor color);
     rectPos get_i_and_j();
     MyItem* get_surroundings(int s_n);
     void changeColor();
-    void oneClick();
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 };

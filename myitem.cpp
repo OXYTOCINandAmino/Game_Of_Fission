@@ -5,6 +5,7 @@
 #include <QTime>
 #include <math.h>
 
+
 using namespace std;
 //----------------------------------global variable------------------------------------//
 
@@ -14,7 +15,7 @@ extern int row;
 extern int col;
 extern int MaxValue;
 extern double sideLength;
-
+void delay(int delay);
 
 static rectPos hex1 = set_Rect_Pos(0,0);
 static rectPos hex2 = set_Rect_Pos(0,1);
@@ -90,14 +91,20 @@ void MyItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget 
 void MyItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
     setFocus();
     setCursor(Qt::ClosedHandCursor);
-    changeColor();
+
+    this->changeColor();
     this->setColor();
     setRotation(360);
     return;
 }
 
 void MyItem::setColor(){
-    this->brushColor = QColor(255-(Num*255/MaxValue),255-(Num*255/MaxValue),255-(Num*255/MaxValue));
+//    this->brushColor = QColor(255-(Num*255/MaxValue),255-(Num*255/MaxValue),255-(Num*255/MaxValue));
+    this->brushColor = QColor(255-(Num*255/MaxValue),255-(Num*255/MaxValue),255);
+}
+
+void MyItem::setColor(QColor color){
+    this->brushColor = color;
 }
 
 void MyItem::set_i_and_j(int x, int y){
@@ -175,17 +182,17 @@ void MyItem::changeColor(){
     int num = this->getNum();
     if(num<MaxValue){
         this->setNum(num+1);
-        this->setColor();
+        setColor();
     }
     else{
         this->setNum(0);
-        this->setColor();
         for(int i=1;i<=6;i++){
             MyItem* item = this->get_surroundings(i);
-            if(item==nullptr)
-                return;
-            item->changeColor();
-            item->setRotation(360);
+            if(item!=nullptr){
+                item->changeColor();
+                item->setRotation(360);
+            }
+
         }
     }
 }
